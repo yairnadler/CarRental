@@ -1,5 +1,5 @@
 import { RentCommand, ReturnCommand } from "./Actions.js";
-import carsDictionary from "./carsDataBase.js";
+import carsDictionary from "./CarsDataBase.js";
 
 export default class CarRentalSystem {
   constructor() {
