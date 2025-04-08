@@ -1,4 +1,4 @@
-import { Toyota, Honda, Ford, Chevrolet, BMW } from "./Cars.js";
+import { Toyota, Honda, Ford, Chevrolet, BMW } from "./Car.js";
 
 class CarFactory {
   static createCar(brand) {
@@ -37,7 +37,7 @@ const brands = ["Toyota", "Honda", "Ford", "Chevrolet", "BMW"];
 for (let i = 0; i < 100; i++) {
   const brand = brands[Math.floor(Math.random() * brands.length)];
   const car = CarFactory.createCar(brand);
-  carsDictionary[car.licensePlate] = car.brand;
+  carsDictionary[i] = car;
 }
 
 export default carsDictionary;

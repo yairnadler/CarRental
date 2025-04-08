@@ -1,6 +1,5 @@
-import { RentCommand, ReturnCommand } from "./Actions";
-import CarAvailabilityObserver from "./carAvilabilityOBserver";
-import carsDictionary from "./carsDataBase";
+import { RentCommand, ReturnCommand } from "./Actions.js";
+import carsDictionary from "./carsDataBase.js";
 
 export default class CarRentalSystem {
   constructor() {
@@ -8,15 +7,19 @@ export default class CarRentalSystem {
     this.observers = [];
   }
 
+  getCars() {
+    return this.cars;
+  }
+
   // Rent a car
   rentCar(car, user) {
-    const rentCommand = new RentCarCommand(car, user);
+    const rentCommand = new RentCommand(car, user);
     rentCommand.execute();
   }
 
   // Return a car
   returnCar(car, user) {
-    const returnCommand = new ReturnCarCommand(car, user);
+    const returnCommand = new ReturnCommand(car, user);
     returnCommand.execute();
     this.notifyObservers(car);
   }
