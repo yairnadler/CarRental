@@ -1,31 +1,34 @@
 import express from "express";
-import CarRentalSystem from "./model/CarRentalSystem.js";
-import router from "./routes/routes.js";
+import session from "express-session";
 import morgan from "morgan";
 
+import router from "./routes/routes.js";
+import CarRentalSystem from "./model/CarRentalSystem.js";
+
 const app = express();
+
 const carRentalSystem = new CarRentalSystem();
 
-// app.get("/", (req, res) => {
+app.use((req, _, next) => {
+  req.carRentalSystem = carRentalSystem;
+  next();
+});
 
-//   // Create users (observers)
-//   const user1 = new User("Alice", "alice@gmail.com");
-//   const user2 = new User("Bob", "bob@gmail.com");
+app.use(express.json());
 
-//   // Add users as observers
-//   carRentalSystem.addObserver(user1);
-//   carRentalSystem.addObserver(user2);
+app.use(express.urlencoded({ extended: true }));
 
-//   // Rent a car
-//   console.log("Renting a car...");
-//   carRentalSystem.rentCar(carRentalSystem.getCars()[0], user1);
+app.use(
+  session({
+    secret: "your_secret_key",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
-//   // Return the car
-//   console.log("\nReturning the car...");
-//   carRentalSystem.returnCar(carRentalSystem.getCars()[0], user1);
+app.use("/", router);
 
-//   res.send(carRentalSystem.observers);
-// });
+app.use(morgan("dev"));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

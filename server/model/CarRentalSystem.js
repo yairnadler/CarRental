@@ -12,13 +12,15 @@ export default class CarRentalSystem {
   }
 
   // Rent a car
-  rentCar(car, user) {
+  rentCar(licensePlate, user) {
+    const car = this.cars[licensePlate];
     const rentCommand = new RentCommand(car, user);
     rentCommand.execute();
   }
 
   // Return a car
-  returnCar(car, user) {
+  returnCar(licensePlate, user) {
+    const car = this.cars[licensePlate];
     const returnCommand = new ReturnCommand(car, user);
     returnCommand.execute();
     this.notifyObservers(car);

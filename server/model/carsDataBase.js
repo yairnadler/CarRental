@@ -6,15 +6,15 @@ class CarFactory {
 
     switch (brand) {
       case "Toyota":
-        return new Toyota(licensePlate);
+        return [new Toyota(licensePlate), licensePlate];
       case "Honda":
-        return new Honda(licensePlate);
+        return [new Honda(licensePlate), licensePlate];
       case "Ford":
-        return new Ford(licensePlate);
+        return [new Ford(licensePlate), licensePlate];
       case "Chevrolet":
-        return new Chevrolet(licensePlate);
+        return [new Chevrolet(licensePlate), licensePlate];
       case "BMW":
-        return new BMW(licensePlate);
+        return [new BMW(licensePlate), licensePlate];
       default:
         throw new Error("Unknown brand");
     }
@@ -28,6 +28,10 @@ class CarFactory {
       String.fromCharCode(65 + Math.floor(Math.random() * 26)); // 3 random letters
     return `${digits}-${letters}`;
   }
+
+  static getLicensePlate() {
+    return this.generateLicensePlate();
+  }
 }
 
 const carsDictionary = {};
@@ -36,8 +40,8 @@ const brands = ["Toyota", "Honda", "Ford", "Chevrolet", "BMW"];
 
 for (let i = 0; i < 100; i++) {
   const brand = brands[Math.floor(Math.random() * brands.length)];
-  const car = CarFactory.createCar(brand);
-  carsDictionary[i] = car;
+  const [car, licensePlate] = CarFactory.createCar(brand);
+  carsDictionary[licensePlate] = car;
 }
 
 export default carsDictionary;
